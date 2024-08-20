@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pnwtools"
-version = "2024.08.20"
+version = "2024.8.20"
 
 
 dependencies = ["guano",]
@@ -39,6 +39,7 @@ Issues = "https://github.com/zjruff/pnwtools/issues"
 [project.scripts]
 rename_files = "pnwtools.RenameFiles:main"
 check_tags = "pnwtools.CheckTags:main"
+station_info = "pnwtools.GetStationInfo:main"
 make_wav_review_file = "pnwtools.MakeWavReviewFile:main"
 
 

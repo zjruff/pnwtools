@@ -74,6 +74,20 @@ Run this script like so:
 rename_files D:\Path\to\target_dir
 ```
 
+### `station_info`
+
+This script will create a table summarizing the .wav files in the 
+target directory by recording station. The summary will be written to
+a CSV file listing the station ID, number of valid .wav files, first
+and last recording dates, and the serial number of the ARU (or "NA" if
+the serial number could not be read).
+
+Run this script like so:
+
+```
+station_info D:\Path\to\target_dir
+```
+
 ### `check_tags`
 
 This script will summarize the ID tags that have been applied to a 
