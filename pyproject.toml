@@ -1,0 +1,49 @@
+[build-system]
+requires = [
+    "setuptools >= 61",
+    "setuptools-scm >= 8.0"
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "pnwtools"
+version = "2024.08.20"
+
+
+dependencies = ["guano",]
+requires-python = ">=3.8"
+
+
+authors = [{name = "Zack Ruff", email = "zjruff@gmail.com"}]
+maintainers = [{name = "Zack Ruff", email = "zjruff@gmail.com"}]
+description = "Tools for working with bioacoustics data"
+readme = "README.md"
+license = {file = "LICENSE.md"}
+keywords = ["bioacoustics"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent"
+]
+
+
+[project.urls]
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/zjruff/pnwtools"
+Issues = "https://github.com/zjruff/pnwtools/issues"
+
+
+[project.scripts]
+rename_files = "pnwtools.RenameFiles:main"
+check_tags = "pnwtools.CheckTags:main"
+make_wav_review_file = "pnwtools.MakeWavReviewFile:main"
+
+
+[tool.setuptools]
+packages = [
+    "pnwtools"
+]
+package-dir = {"" = "src"}
