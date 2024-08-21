@@ -154,7 +154,7 @@ def makeWavLines(wav_path, target_dir, clip_length, interval):
 ################################################################################
 ############## Functions for renaming a set of .wav files ######################
 
-def renameWav(oldpath):
+def renameWav(old_path):
     """Intelligently rename a .wav file.
     
     Infers the hex ID and station from the two lowest level directories
@@ -164,35 +164,43 @@ def renameWav(oldpath):
     last two components when the name is split by '_'.
     Replaces $ with _ to deal with weird filenames that ARUs sometimes 
     spit out when the recording quality is wonky.
-    
     """
-    fdir = os.path.dirname(oldpath)
-    fname = os.path.basename(oldpath).replace('$', '_')
-    hexdir, stndir = fdir.split(os.sep)[-2:]
-    stn_id = stndir.split('_')[-1]
-    stamp = '_'.join(fname.split('_')[-2:])
-    newfname = "{0}-{1}_{2}".format(hexdir, stn_id, stamp)
-    newpath = os.path.join(fdir, newfname)
+    
+    wav_dir, old_name = os.path.split(old_path)
+    old_name = old_name.replace('$', '_')
+    
+    hex_id, stn_dir = wav_dir.split(os.sep)[-2:]
+    stn_id = stn_dir.split('_')[-1]
+    
+    str_stamp = '_'.join(old_name.split('_')[-2:])
+    
+    new_name = "{0}-{1}_{2}".format(hex_id, stn_id, str_stamp)
+    new_path = os.path.join(wav_dir, new_name)
 
-    if newpath != oldpath:
-        os.rename(oldpath, newpath)
+    if new_path != old_path:
+        os.rename(old_path, new_path)
     else:
         pass
 
-    return "{0},{1}".format(oldpath, newpath)
+    return "{0},{1},{2}".format(wav_dir, old_name, new_name)
 
 
-def undoRename(logpath):
+def undoRename(log_path):
     """Undo a renaming operation based on an existing log file."""
-    with open(logpath) as logfile:
-        loglines = logfile.readlines()[1:]
-        print("Reverting {0} filenames... ".format(len(loglines))),
-    for line in loglines:
-        oldpath, newpath = line.rstrip().split(',')
-        if oldpath == newpath:
+    
+    with open(log_path) as log_file:
+        log_lines = log_file.readlines()[1:]
+        print("Reverting {0} filenames... ".format(len(log_lines))),
+    
+    for line in log_lines:
+        wav_dir, old_name, new_name = line.rstrip().split(',')
+        old_path, new_path = os.path.join(wav_dir, old_name), os.path.join(wav_dir, new_name)
+
+        if old_path == new_path:
             continue
         else:
-            os.rename(newpath, oldpath)
+            os.rename(new_path, old_path)
+    
     print("done.")
 
 
@@ -433,7 +441,7 @@ def getSerial(fpath):
     except:
         try:
             gf = GuanoFile(fpath)
-            serial = gf["serial"]
+            serial = gf["Serial"]
         except:
             serial = "NA"
     return serial
