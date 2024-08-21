@@ -4,29 +4,33 @@
 researchers and technicians with the USDA Forest Service Pacific 
 Northwest Research Station, specifically those involved in passive 
 acoustic monitoring of Northern spotted owls and other forest wildlife.
-These tools may also be useful to others doing bioacoustics work but
+These tools may also be useful to others doing bioacoustics work, but
 please note that they are mostly designed for use within the USFS 
 spotted owl monitoring program and will reflect its various 
 idiosyncrasies.
 
 `pnwtools` is structured as a Python package for ease of distribution 
-via [the Python Package Index (PyPI.org)](https://pypi.org/project/pnwtools/)
-but mostly consists of a collection of scripts that can be run as 
-standalone command-line tools. See the Scripts section below for notes 
-on the available scripts and how to use them.
+via [the Python Package Index](https://pypi.org/project/pnwtools/).
+The package contains a Python module called `pnwtools` which exports 
+various functions, but the package is not really intended to provide a
+complete functional API. The main purpose of the package is to provide 
+a collection of useful scripts that can be run as standalone command-
+line tools. See the Scripts section below for notes on the available 
+scripts and how to use them.
 
-This package is intended to be a living collection and will be updated 
-periodically with new scripts and improvements to existing scripts. If 
-there are tools or features you would like to see added, please email 
-Zack via zjruff at gmail dot com.
+This package is intended to be a living resource and will be updated 
+periodically with new scripts as well as bug fixes and improvements to
+existing scripts. If there are tools or features you would like to see 
+added, or if something is not working correctly, please email Zack via 
+zjruff at gmail dot com.
 
 ## Installation
 
-**Note: As of 8/20 the package is NOT YET available from PyPI.org. 
-Just getting the repository set up at the moment.**
+**Note: As of 8/21 the package is NOT YET available from PyPI.org. 
+We are still getting the repository set up.**
 
-`pnwtools` is compatible with all modern versions of Python (2.7 and 
-3+) and can be installed using `pip` like so:
+`pnwtools` is compatible with Python version >=3.8 and can be installed
+from the Python Package Index (PyPI) using `pip` like so:
 
 ```
 python -m pip install pnwtools
@@ -34,12 +38,11 @@ python -m pip install pnwtools
 
 Note that there is an unrelated package called `pwntools` which 
 provides tools for Capture The Flag-style cybersecurity competitions. 
-The similar spelling makes it very easy to install this other package 
-by mistake, so we recommend simply copying and pasting the above 
-command into your shell program.
+The similar names make it very easy to install this other package by
+mistake, so think "PNW tools" and use care when typing, or simply copy 
+and paste the above command into your shell program.
 
-To make sure you are using the latest available version of `pnwtools`,
-you can update it at any time like so:
+You can update `pnwtools` to the latest version at any time like so:
 
 ```
 python -m pip install --upgrade pnwtools
@@ -73,6 +76,11 @@ Run this script like so:
 ```
 rename_files D:\Path\to\target_dir
 ```
+
+If you need to undo the changes, you can just run the script again on 
+the same target directory. The script will detect the log file created
+by the initial operation and use it as a guide to reverse any filename
+changes that were made. 
 
 ### `station_info`
 
