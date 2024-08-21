@@ -10,13 +10,13 @@ spotted owl monitoring program and will reflect its various
 idiosyncrasies.
 
 `pnwtools` is structured as a Python package for ease of distribution 
-via [the Python Package Index](https://pypi.org/project/pnwtools/).
+via the [Python Package Index](https://pypi.org/project/pnwtools/).
 The package contains a Python module called `pnwtools` which exports 
 various functions, but the package is not really intended to provide a
 complete functional API. The main purpose of the package is to provide 
 a collection of useful scripts that can be run as standalone command-
-line tools. See the Scripts section below for notes on the available 
-scripts and how to use them.
+line tools. See the [Scripts](#scripts) section below for notes on the
+available scripts and how to use them.
 
 This package is intended to be a living resource and will be updated 
 periodically with new scripts as well as bug fixes and improvements to
@@ -131,7 +131,7 @@ make_wav_review_file D:\Path\to\target_dir
 ```
 
 To run the script using different values for `clip_length` and 
-`interval`, run
+`interval`, run e.g.
 
 ```
 make_wav_review_file D:\Path\to\target_dir 12 8
