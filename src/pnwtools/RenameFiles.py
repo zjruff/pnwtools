@@ -31,8 +31,8 @@ def main():
         print("Please provide the path to the target directory.")
         exit()
 
-    rename_log_path = os.path.join(target_dir, "Rename_Log.csv")
-    stn_info_path = os.path.join(target_dir, "Station_Info.csv")
+    dir_name = os.path.basename(target_dir)
+    rename_log_path = os.path.join(target_dir, "{0}_rename_log.csv".format(dir_name))
 
     wavs = pnwtools.findWavs(target_dir)
 
@@ -45,22 +45,28 @@ def main():
         else:
             pass
     else:
-        print("Renaming {0} files... ".format(len(wavs))),
-        log_lines = ["Old_path,New_path"]
-        log_lines.extend(map(pnwtools.renameWav, wavs))
+        print("Renaming {0} files... ".format(len(wavs)), end='')
         
+        log_lines = ["Folder,Old_Filename,New_Filename"]
+        log_lines.extend(map(pnwtools.renameWav, wavs))
+
         with open(rename_log_path, 'w') as log_file:
             log_file.write('\n'.join(log_lines))
-        
+
         print("done.")
 
-    stn_info = pnwtools.buildStationDict(target_dir)
-    stn_info_lines = pnwtools.buildStationTable(stn_info)
+    # Option to automatically create a station info file
+    make_info_file = input("\nCreate station info file? (Y/n) ")
+    if make_info_file.lower() != 'n':
+        stn_info_path = os.path.join(target_dir, "{0}_station_info.csv".format(dir_name))
+        
+        stn_info = pnwtools.buildStationDict(target_dir)
+        stn_info_lines = pnwtools.buildStationTable(stn_info)
 
-    with open(stn_info_path, 'w') as stn_info_file:
-        stn_info_file.write('\n'.join(stn_info_lines))
-    
-    os.startfile(stn_info_path, 'open')
+        with open(stn_info_path, 'w') as stn_info_file:
+            stn_info_file.write('\n'.join(stn_info_lines))
+
+        os.startfile(stn_info_path, 'open')
 
 
 if __name__ == "__main__":
