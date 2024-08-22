@@ -26,7 +26,7 @@ zjruff at gmail dot com.
 
 ## Installation
 
-`pnwtools` is compatible with Python version 3.8 and can be installed
+`pnwtools` is compatible with Python versions 3.8+ and can be installed
 from the Python Package Index (PyPI) using `pip` like so:
 
 ```
