@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pnwtools"
-version = "24.8.22"
+version = "25.9.10"
 
 
 dependencies = ["guano",]
@@ -41,6 +41,7 @@ rename_files = "pnwtools.RenameFiles:main"
 check_tags = "pnwtools.CheckTags:main"
 station_info = "pnwtools.GetStationInfo:main"
 make_wav_review_file = "pnwtools.MakeWavReviewFile:main"
+recover_filenames = "pnwtools.RecoverFilenames:main"
 
 
 [tool.setuptools]
