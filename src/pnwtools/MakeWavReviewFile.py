@@ -27,7 +27,6 @@ Usage:
 
 import os
 import sys
-from math import log10
 from pnwtools import makeWavDict, makeWavLines
 
 
