@@ -34,7 +34,6 @@ def main():
     dir_name = os.path.basename(target_dir)
     rename_log_path = os.path.join(target_dir, "{0}_rename_log.csv".format(dir_name))
 
-    wavs = pnwtools.findWavs(target_dir)
 
     if os.path.exists(rename_log_path):
         print("It looks like files in this folder have already been renamed.")
@@ -45,6 +44,7 @@ def main():
         else:
             pass
     else:
+        wavs = pnwtools.findWavs(target_dir)
         print("Renaming {0} files... ".format(len(wavs)), end='')
         
         log_lines = ["Folder,Old_Filename,New_Filename"]
