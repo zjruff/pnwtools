@@ -133,3 +133,23 @@ To run the script using different values for `clip_length` and
 ```
 make_wav_review_file D:\Path\to\target_dir 12 8
 ```
+
+### `recover_filenames`
+
+This script is intended for restoring the names of .wav files that have
+been recovered from a corrupted SD card and been renamed `File001.wav`, 
+`File002.wav`, etc. If you know where the files are from, you can 
+supply a prefix which will be applied to each filename; if you do not 
+provide a prefix, the script will use the ARU serial number.
+
+Run this script like so:
+
+```
+recover_filenames D:\Path\to\target_dir
+```
+
+To provide a prefix for any files that are recovered, run e.g.
+
+```
+recover_filenames D:\Path\to\target_dir COA_23459-B
+```
