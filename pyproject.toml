@@ -1,0 +1,55 @@
+[build-system]
+requires = [
+    "setuptools >= 61",
+    "setuptools-scm >= 8.0"
+]
+build-backend = "setuptools.build_meta"
+
+
+[project]
+name = "pnwtools"
+version = "26.9.30"
+
+
+dependencies = ["guano", "pandas", "fastparquet", "soundfile"]
+requires-python = ">=3.8,<3.13"
+
+
+authors = [{name = "Zack Ruff", email = "zjruff@gmail.com"}]
+maintainers = [{name = "Zack Ruff", email = "zjruff@gmail.com"}]
+description = "Tools for working with bioacoustics data"
+readme = "README.md"
+license = {file = "LICENSE.md"}
+keywords = ["bioacoustics"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: OS Independent"
+]
+
+
+[project.urls]
+Documentation = "https://readthedocs.org"
+Repository = "https://github.com/zjruff/pnwtools"
+Issues = "https://github.com/zjruff/pnwtools/issues"
+
+
+[project.scripts]
+inventory = "pnwtools.Inventory_Files:main"
+rename_files = "pnwtools.Rename_Files:main"
+undo_rename = "pnwtools.Undo_Rename:main"
+pnw_rename = "pnwtools.PNW_Rename:main"
+check_tags = "pnwtools.Check_Tags:main"
+station_info = "pnwtools.Get_Station_Info:main"
+make_wav_review_file = "pnwtools.Make_Wav_Review_File:main"
+recover_filenames = "pnwtools.Recover_Filenames:main"
+generate_spectrograms = "pnwtools.Generate_Spectrograms:main"
+
+
+[tool.setuptools]
+packages = [
+    "pnwtools"
+]
+package-dir = {"" = "src"}
