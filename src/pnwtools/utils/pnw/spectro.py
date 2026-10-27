@@ -155,17 +155,21 @@ def prep_spectro_gen(audio_files, dst_dir, n_chunks=None, **segment_params):
 
     n_grams = len(dst_files)
 
+    out_dirs = []
     if not n_chunks:
-        chunks = [gram_info]
-        dst_paths = [Path(dst_dir, "images", i) for i in dst_files]
+        out_dir = Path(dst_dir, "images")
+        out_dirs.append(out_dir)
+        dst_paths = [Path(out_dir, i) for i in dst_files]
     else:
         grams_per_chunk = n_grams // n_chunks + (0 if n_grams % n_chunks == 0 else 1) 
         dst_chunks = split_list(dst_files, grams_per_chunk)
         dst_paths = []
         for i in range(n_chunks):
-            dst_paths = dst_paths + [str(Path(dst_dir, f"Part_{i+1:02d}", "images", j)) for j in dst_chunks[i]]
+            out_dir_i = Path(dst_dir, f"Part_{i+1:02d}", "images")
+            out_dirs.append(out_dir_i)
+            dst_paths = dst_paths + [Path(out_dir_i, j) for j in dst_chunks[i]]
 
-    out_dirs = sorted(list(set([i.parent for i in dst_paths])))
+    dst_paths = [str(p) for p in dst_paths]
 
     gram_vals_for_sox = list(zip(src_files, offsets, durations, dst_paths))
 

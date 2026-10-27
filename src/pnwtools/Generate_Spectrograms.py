@@ -35,6 +35,11 @@ def _build_parser():
                         type=str,
                         help="Directory where images will be generated. Will be created if it does not already exist. Default: <target_dir>/Temp.")
 
+    parser.add_argument("-d", "--dry-run",
+                        dest="dry_run",
+                        action="store_true",
+                        help="Dry run / preview mode (generate spectrogram info file but do not actually generate spectrograms).")
+
     parser.add_argument("-e", "--extensions",
                         dest="extensions", 
                         type=str,
@@ -103,31 +108,35 @@ def main():
 
     df_out_file = Path(top_out_dir, "Spectrogram_Info.parquet")
     spectro_info_df.to_parquet(df_out_file)
-    
+
     if args.save_csv:
         df_out_csv = Path(top_out_dir, "Spectrogram_Info.csv")
         spectro_info_df.to_csv(df_out_csv, index=False)
 
     # Creating output directory structure and generating spectrograms
 
-    for i in out_dirs:
-        if not i.exists():
-            i.mkdir(parents=True)
+    if args.dry_run:
+        print("\nSpectrogram information written to file.")
 
-    proc_start = datetime.now()
-    print(f"\nGenerating spectrograms starting at {proc_start:%H:%M:%S}.")
+    else:
+        for i in out_dirs:
+            if not i.exists():
+                i.mkdir(parents=True)
 
-    n_workers = args.n_workers if args.n_workers else MAX_WORKERS
-    with mp.Pool(n_workers) as p:
-        results = p.map(generate_spectrogram, spectro_info)
+        proc_start = datetime.now()
+        print(f"\nGenerating spectrograms starting at {proc_start:%H:%M:%S}.")
 
-    proc_end = datetime.now()
-    proc_elapsed = (proc_end - proc_start).total_seconds() / 3600.
-    print(f"\nFinished at {proc_end:%H:%M:%S} ({proc_elapsed:.1f} h elapsed).\n")
+        n_workers = args.n_workers if args.n_workers else MAX_WORKERS
+        with mp.Pool(n_workers) as p:
+            results = p.map(generate_spectrogram, spectro_info)
 
-    err_count = sum([min(i, 1) for i in results])
-    if err_count > 0:
-        print(f"{err_count} spectrograms produced non-zero return codes.\n")
+        proc_end = datetime.now()
+        proc_elapsed = (proc_end - proc_start).total_seconds() / 3600.
+        print(f"\nFinished at {proc_end:%H:%M:%S} ({proc_elapsed:.1f} h elapsed).\n")
+
+        err_count = sum([min(i, 1) for i in results])
+        if err_count > 0:
+            print(f"{err_count} spectrograms produced non-zero return codes.\n")
 
 if __name__ == "__main__":
     main()

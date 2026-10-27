@@ -214,14 +214,14 @@ def segment_audio(file_path, seg_dur, interval=None, min_seg_dur=None):
     if not interval:
         interval = seg_dur
 
-    # Don't want to deal with a bunch of weird edge cases if we let this be 0
+    """Hunch: Letting this be 0 would cause a bunch of weird edge cases."""
     if not min_seg_dur:
         min_seg_dur = 0.01
 
     n_segments = int(file_dur // interval) + int(file_dur % interval != 0)  
     clip_indices = [i*interval for i in range(n_segments)]
     clip_durs = [min(seg_dur, file_dur-j) for j in clip_indices]
-    
+
     clip_info = [k for k in zip(clip_indices, clip_durs) if k[1] >= min_seg_dur]
 
     return clip_info
