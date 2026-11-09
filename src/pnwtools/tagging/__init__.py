@@ -15,6 +15,7 @@ Functions:
         Print a summary of user-applied ID tags in a review file.
 """
 
+import datetime as dt
 import os
 import re
 import sys
@@ -157,7 +158,7 @@ def summarize_tags(tag_count_dict):
     tag_counts = tag_count_dict["tag_counts"]
     folders = finfo["unique_folders"]
 
-    str_mtime = datetime.fromtimestamp(finfo["file_mtime"]).strftime("%b %d at %H:%M")
+    str_mtime = dt.datetime.fromtimestamp(finfo["file_mtime"]).strftime("%b %d at %H:%M")
 
     print("\nFile {0} was last saved {1}.".format(finfo["file_name"], str_mtime))
     print("{0:,} of {1:,} lines are tagged.\n".format(finfo["tagged_lines"], finfo["total_lines"]))
